@@ -29,3 +29,23 @@ def parse_data(plot=False):
         plt.show()
 
     return (datax, datay), (gdatax, gdatay)
+
+
+data, gdata = parse_data()
+datax, datay = data
+datax = [x+50 for x in datax]
+datay = [y+50 for y in datay]
+
+data_count = len(datax)
+
+
+
+# plt.plot(datax, datay); plt.show()
+# gdata = [(i,i) for i in range(num_data)]
+# theta_range = 180
+# thetas = np.linspace(0, theta_range, num=theta_range)
+# datax = [100*np.cos(np.deg2rad(theta)) for theta in thetas]
+# datay = [100*np.sin(np.deg2rad(theta)) for theta in thetas]
+
+# datax = [i for i in range(100)]
+# datay = [i for i in range(100)]

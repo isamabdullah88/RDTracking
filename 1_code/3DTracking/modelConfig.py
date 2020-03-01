@@ -3,17 +3,17 @@ import matplotlib.pyplot as plt
 from numpy.random import randn
 
 # Example 1
-"""
-x_k = np.array([0., 0]).reshape(-1,1)
-P_k = 10.*np.eye(2)
 
-R = np.array([.5])
-Q = np.array([[0.0075, 0.015], [0.015, 0.03]])
+x_k0 = np.array([0., 0]).reshape(-1,1)
+P_k0 = 10.*np.eye(2)
 
-n = 2; m = 1
-dt = 1.
+R0 = np.array([.5])
+Q0 = np.array([[0.0075, 0.015], [0.015, 0.03]])
 
-def fx(x_k, dt):
+n0 = 2; m0 = 1
+dt0 = 1.
+
+def fx0(x_k, dt):
 	x_k_tmp = x_k.copy()
 	xout = np.empty_like(x_k_tmp)
 	xout[0] = x_k_tmp[1] * dt + x_k_tmp[0]
@@ -21,31 +21,16 @@ def fx(x_k, dt):
 	return xout
 
 
-def hx(x_k):
+def hx0(x_k):
 	# TODO: Define measurement mdoel
 	x_k_tmp = x_k.copy()
 	return x_k_tmp[:1]
-"""
+
 
 
 # Example 2
-from data import parse_data
-data, gdata = parse_data()
-datax, datay = data
-datax = [x+50 for x in datax]
-datay = [y+50 for y in datay]
+from data import datax, datay, data_count
 
-# plt.plot(datax, datay); plt.show()
-# gdata = [(i,i) for i in range(num_data)]
-# theta_range = 180
-# thetas = np.linspace(0, theta_range, num=theta_range)
-# datax = [100*np.cos(np.deg2rad(theta)) for theta in thetas]
-# datay = [100*np.sin(np.deg2rad(theta)) for theta in thetas]
-
-# datax = [i for i in range(100)]
-# datay = [i for i in range(100)]
-
-data_count = len(datax)
 
 ### MODEL 1 ###
 # Define initial conditions
