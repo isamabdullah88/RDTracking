@@ -27,20 +27,15 @@ def hx0(x_k):
 	return x_k_tmp[:1]
 
 
-
-# Example 2
-from data import datax, datay, data_count
-
-
 ### MODEL 1 ###
+n1 = 4; m1 = 2; dt1 = 1.
 # Define initial conditions
-x_k1 = np.array([datax[0], datay[0], 0, 0.]).reshape(-1,1)
+x_k1 = np.zeros((n1, 1))
 P_k1 = np.diag(np.array([2, 2, 2, 2]))
 
-Q1 = 1e-1*np.diag(np.array([.5,.5,.3,.3]))
-R1 = np.diag(np.array([2.25, 2.25]))
+Q1 = 1e-2*np.diag(np.array([.5,.5,.3,.3]))
+R1 = 1e-2*np.diag(np.array([.25, .25]))
 
-n1 = 4; m1 = 2; dt1 = 1.
 
 def fx1(x_k, dt):
 	"""
@@ -64,18 +59,18 @@ def hx1(x_k):
 	x, y, _, _ = x_k.copy()
 	return np.array([x,y])
 
-
-
+dt = 1.
+dt1 = dt2 = dt
 
 ### MODEL 2 ###
+n2 = 5; m2 = 4; dt2 = 1.
 # Define initial conditions
-x_k2 = np.array([datax[0], datay[0], 0, 0., 0.]).reshape(-1,1)
+x_k2 = np.zeros((n2, 1))
 P_k2 = np.diag(np.array([2, 2, 2, 2, 2]))
 
-Q2 = 2e-1*np.diag(np.array([.5,.5,.3,.3, .3]))
+Q2 = 1e2*np.diag(np.array([.5,.5,.3,.3, .3]))
 R2 = np.diag(np.array([2.25, 2.25, 2.25, 2.25]))
 
-n2 = 5; m2 = 4; dt2 = 1.
 
 def fx2(x_k, dt):
 	"""

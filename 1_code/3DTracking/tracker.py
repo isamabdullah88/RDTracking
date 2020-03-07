@@ -4,8 +4,8 @@ from numpy.random import randn
 import numpy as np
 
 from UKF import UKF
-from models import dt1, n1, m1, Q1, R1, fx1, hx1, x_k1, P_k1
-from models import dt2, n2, m2, Q2, R2, fx2, hx2, x_k2, P_k2
+from modelConfig import dt1, n1, m1, Q1, R1, fx1, hx1, x_k1, P_k1
+from modelConfig import dt2, n2, m2, Q2, R2, fx2, hx2, x_k2, P_k2
 
 
 
@@ -14,7 +14,7 @@ class Tracker(object):
 	Combines Linear and Angular model to account for correct orientation estimation
 	and trajectory projection estimation.
 	"""
-	def __init__(self):
+	def __init__(self, x_k1, x_k2):
 		super(Tracker, self).__init__()
 
 		self._tracker1 = UKF(dt1, n1, m1, Q1, R1, fx1, hx1, x0=x_k1, P0=P_k1)
@@ -37,7 +37,6 @@ class Tracker(object):
 
 		self._tracker2.propagate_state()
 		self._tracker2.propagate_meas()
-
 
 	def update(self, z_k=None):
 		"""
@@ -68,8 +67,8 @@ class Tracker(object):
 		"""
 		Returns updated state elements as list. [x,y,vx,vy,v,theta]
 		"""
-		_, _, vx, vy = self._tracker1.x_k
-		x, y, v, theta, _ = self._tracker2.x_k
+		x, y, vx, vy = self._tracker1.x_k
+		_, _, v, theta, _ = self._tracker2.x_k
 
 		return [x, y, vx, vy, v, theta]
 
@@ -114,10 +113,17 @@ def plot_states(states, datax, datay):
 
 def main():
 
-	from models import datax, datay, data_count
+	from data import udacity_data
+	datax, datay, data_count = udacity_data()
 
 	states = []
 	tracker = Tracker()
+
+	# init states
+	tracker._tracker1.x_k[0] = datax[0]
+	tracker._tracker1.x_k[1] = datay[0]
+	tracker._tracker2.x_k[0] = datax[1]
+	tracker._tracker2.x_k[1] = datay[1]
 
 	for i in range(data_count):
 
